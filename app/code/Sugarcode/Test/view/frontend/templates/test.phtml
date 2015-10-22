@@ -1,0 +1,14 @@
+<?php
+$message = "Hello World";
+?>
+<div class= "testclass">
+	<?php echo $message;	?>
+</div>
+<?php
+echo '<pre>';
+$datas = $this->getAllData();
+foreach($datas as $data){
+	print_r($data->getData());
+	echo '***************************************************************</br>';
+}
+?>

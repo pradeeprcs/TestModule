@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Core/etc/layout_single.xsd">
+	<!--<update handle="page_one_column"/>-->
+	<head>
+        <title>Test Module of Magento 2</title>
+       <css src="Sugarcode_Test::css/test.css" />
+       <link src="Sugarcode_Test::js/test.js"/>		
+    </head>
+	
+    <body>
+		<referenceContainer name="content">
+			<block  class="Sugarcode\Test\Block\Test"  name="test" template="Sugarcode_Test::test.phtml"></block>
+		</referenceContainer>
+	
+    </body>
+</layout>

@@ -1,0 +1,6 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+    <menu>
+        <add id="Sugarcode_Test::test" title="Test modules" module="Sugarcode_Test" sortOrder="50" resource="Sugarcode_Test::test"/>
+        <add id="Sugarcode_Test::lists" title="Lists" module="Sugarcode_Test" sortOrder="10" parent="Sugarcode_Test::test" action="test/lists/" resource="Sugarcode_Test::test"/>
+    </menu>
+</config>
