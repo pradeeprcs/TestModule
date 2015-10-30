@@ -62,6 +62,72 @@ class UpgradeSchema implements UpgradeSchemaInterface
 				// Changes here.
 			}
 		}
+		if (version_compare($context->getVersion(), '2.0.4', '<')) {
+			  if ($setup->getConnection()->isTableExists($tableName) == true) {
+				$connection = $setup->getConnection();
+				
+				  // Declare data
+                $columns = [
+                    'in_lists_grid' => [
+                        'type' => Table::TYPE_TEXT,
+                        'nullable' => false,
+                        'comment' => 'selected grids',
+						'after' => 'updated_at',
+                    ],
+                ];
+
+                $connection = $setup->getConnection();
+                foreach ($columns as $name => $definition) {
+                    $connection->addColumn($tableName, $name, $definition);
+                }
+				
+				// Changes here.
+			}
+		}
+		
+		if (version_compare($context->getVersion(), '2.0.5', '<')) {
+				$connection = $setup->getConnection();
+				$tableNames=['sales_order_item','sales_invoice_item','quote_item'];
+				
+				  // Declare data
+                $columns = [
+                    'custom_sku' => [
+                        'type' => Table::TYPE_TEXT,
+                        'nullable' => false,
+						'LENGTH' =>255,
+                        'comment' => 'custom sku',
+                    ],
+                ];
+                $connection = $setup->getConnection();
+                foreach ($tableNames as $tableName) {
+					foreach ($columns as $name => $definition) {
+						$connection->addColumn($tableName, $name, $definition);
+					}
+				}
+				
+				
+				$tableNames=['sales_order','sales_invoice','quote'];
+				
+				  // Declare data
+                $columns = [
+                    'custom_field' => [
+                        'type' => Table::TYPE_TEXT,
+                        'nullable' => false,
+						'LENGTH' =>255,
+                        'comment' => 'custom Field',
+                    ],
+                ];
+                $connection = $setup->getConnection();
+                foreach ($tableNames as $tableName) {
+					foreach ($columns as $name => $definition) {
+						$connection->addColumn($tableName, $name, $definition);
+					}
+				}
+				
+				
+				// Changes here.
+		}
+		
 		$setup->endSetup();
 		
     }

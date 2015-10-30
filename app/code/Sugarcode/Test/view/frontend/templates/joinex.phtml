@@ -1,0 +1,112 @@
+<?php
+$message = "Ex :- Join Left";
+?>
+<div class="page-title-wrapper">
+    <h1 class="page-title">
+        <span data-ui-id="page-title-wrapper" class="base"><?php echo $message;	?></span>    </h1>
+</div>
+<h2 id="privacy-policy-title-1">Code</h2>	
+<p>In getJoinLeft() i just took order collection and join with customer table 
+<pre>
+
+	protected $_coreRegistry = null;
+    protected $_orderCollectionFactory = null;
+    protected $connection;
+	protected $_resource;
+	
+	public function __construct(
+        \Magento\Backend\Block\Template\Context $context,
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\App\Resource $resource,
+        \Magento\Sales\Model\Resource\Order\CollectionFactory $orderCollectionFactory,
+        array $data = []
+    ) {
+        $this->_orderCollectionFactory = $orderCollectionFactory;
+        $this->_coreRegistry = $registry;
+        $this->_resource = $resource;
+        parent::__construct($context, $data);
+    }
+	public function getJoinLeft()
+	{
+		
+		  $orders = $this->_orderCollectionFactory->create();
+		  $orders->getSelect()->joinLeft(
+            ['oce' => 'customer_entity'],
+            "main_table.customer_id = oce.entity_id",
+            [   
+				'CONCAT(oce.firstname," ", oce.lastname) as customer_name',
+				'oce.firstname',
+                'oce.lastname',
+                'oce.email'
+            ]
+        );
+		
+	//$orders->getSelect()->__toString(); $orders->printlogquery(true);	exit;
+        return $orders;
+		
+		
+	}
+	</pre>
+</p>
+<h2 id="privacy-policy-title-1">Result</h2>	
+<?php
+echo '<pre>';
+$datas = $this->getJoinLeft();
+
+foreach($datas as $data){
+	echo $data->getData('increment_id') .':- '. $data->getData('customer_name').'</br>';
+}
+echo '</pre>'
+?>
+
+<?php
+$message = "Ex :- Direct Query";
+?>
+<div class="page-title-wrapper">
+    <h1 class="page-title">
+        <span data-ui-id="page-title-wrapper" class="base"><?php echo $message;	?></span>    </h1>
+</div>
+<h2 id="privacy-policy-title-1">Code</h2>	
+<p>
+In getDirectQuery() i fetch row of product_entity table, , 
+<pre>
+
+	protected $_coreRegistry = null;
+    protected $_orderCollectionFactory = null;
+    protected $connection;
+	protected $_resource;
+	
+	public function __construct(
+        \Magento\Backend\Block\Template\Context $context,
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\App\Resource $resource,
+        \Magento\Sales\Model\Resource\Order\CollectionFactory $orderCollectionFactory,
+        array $data = []
+    ) {
+        $this->_orderCollectionFactory = $orderCollectionFactory;
+        $this->_coreRegistry = $registry;
+        $this->_resource = $resource;
+        parent::__construct($context, $data);
+    }
+    protected function getConnection()
+    {
+        if (!$this->connection) {
+            $this->connection = $this->_resource->getConnection('core_write');
+        }
+        return $this->connection;
+    }
+	public function getDirectQuery()
+	{
+		$table=$this->_resource->getTableName('catalog_product_entity'); 
+		$sku = $this->getConnection()->fetchRow('SELECT sku,entity_id FROM ' . $table);
+		return $sku;
+	}
+	</pre>
+</p>
+<h2 id="privacy-policy-title-1">Result</h2>	
+<?php
+	echo '<pre>';
+	$dirresult = $this->getDirectQuery();
+	print_r($dirresult);
+	echo '</pre>'
+?>

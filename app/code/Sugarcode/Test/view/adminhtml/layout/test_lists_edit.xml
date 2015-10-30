@@ -5,9 +5,6 @@
     </head>
     <update handle="editor"/>
     <body>
-        <referenceContainer name="content">
-            <block class="Sugarcode\Test\Block\Adminhtml\Lists\Edit" name="list_post_edit"/>
-        </referenceContainer>
         <referenceContainer name="left">
             <block class="Sugarcode\Test\Block\Adminhtml\Lists\Edit\Tabs" name="list_post_edit_tabs">
                 <block class="Sugarcode\Test\Block\Adminhtml\Lists\Edit\Tab\Main" name="list_post_edit_tab_main"/>
@@ -16,6 +13,10 @@
                     <argument name="block" xsi:type="string">list_post_edit_tab_main</argument>
                 </action>
             </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Sugarcode\Test\Block\Adminhtml\Lists\Edit\Tab\Gridlists" name="adminhtml.tests.lists.tabs.grid.js" template="Sugarcode_Test::lists/tabs_grid_js.phtml"/>
+            <block class="Sugarcode\Test\Block\Adminhtml\Lists\Edit" name="list_post_edit"/>
         </referenceContainer>
     </body>
 </page>

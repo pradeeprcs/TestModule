@@ -43,4 +43,33 @@ class Test extends \Magento\Framework\Model\Resource\Db\AbstractDb
     {
         $this->_init('testtable', 'id');
     }
+	protected function _beforeSave(\Magento\Framework\Model\AbstractModel $object)
+    {
+        
+        if (!$object->getId()) {
+            $object->setCreatedAt($this->_date->gmtDate());
+        }
+        $object->setUpdatedAt($this->_date->gmtDate());
+        return $this;
+    }
+	
+	 public function load(\Magento\Framework\Model\AbstractModel $object, $value, $field = null)
+    {
+        
+
+        return parent::load($object, $value, $field);
+    }
+      /**
+     * Retrieve select object for load object data
+     *
+     * @param string $field
+     * @param mixed $value
+     * @param \Magento\Cms\Model\Block $object
+     * @return \Zend_Db_Select
+     */
+    protected function _getLoadSelect($field, $value, $object)
+    {
+        $select = parent::_getLoadSelect($field, $value, $object);
+        return $select;
+    }
 }

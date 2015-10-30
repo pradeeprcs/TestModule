@@ -61,7 +61,7 @@ class Main extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
         /** @var \Magento\Framework\Data\Form $form */
         $form = $this->_formFactory->create();
 
-        $form->setHtmlIdPrefix('page_');
+        //$form->setHtmlIdPrefix('page_');
 
         $fieldset = $form->addFieldset('base_fieldset', ['legend' => __('Information')]);
 
@@ -114,8 +114,10 @@ class Main extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
                 'config' => $this->_wysiwygConfig->getConfig()
             ]
         );
-		
-		
+
+        $fieldset->addField('in_lists_grid', 'hidden', ['name' => 'in_lists_grid', 'id' => 'in_lists_gridz']);
+
+        $fieldset->addField('in_lists_grid_old', 'hidden', ['name' => 'in_lists_grid_old']);
 
 
         $dateFormat = $this->_localeDate->getDateFormat(

@@ -44,6 +44,11 @@ class Save extends \Magento\Backend\App\Action
     public function execute()
     {
         $data = $this->getRequest()->getPostValue();
+		$lists = $this->getRequest()->getParam('in_lists_grid', null);
+        parse_str($lists, $lists);
+        $lists = array_keys($lists);
+		
+		$data['in_lists_grid'] = serialize($lists);
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
         if ($data) {

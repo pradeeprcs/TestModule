@@ -59,11 +59,9 @@ class Collection extends \Magento\Framework\Model\Resource\Db\Collection\Abstrac
         return $countSelect;
     }
 	
-    public function addFieldToSearchFilter($field, $condition = null)
+    protected function _renderFiltersBefore()
     {
-        $field = $this->_getMappedField($field);
-        $this->_select->orWhere($this->_getConditionSql($field, $condition));
-        return $this;
+        parent::_renderFiltersBefore();
     }
 	
 }

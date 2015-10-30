@@ -4,7 +4,11 @@ $message = "Hello World";
 <div class= "testclass">
 	<?php echo $message;	?>
 </div>
+<div id="test-re-js" data-mage-init='{"testmodulesjsmap":{"bodySelector": "from phtml file"}}' class="">
+testclass
+</div>
 <?php
+
 echo '<pre>';
 $datas = $this->getAllData();
 foreach($datas as $data){
